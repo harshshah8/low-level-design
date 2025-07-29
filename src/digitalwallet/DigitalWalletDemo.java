@@ -1,6 +1,7 @@
 package digitalwallet;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class DigitalWalletDemo {
     public static void main(String[] args) {
@@ -30,12 +31,36 @@ public class DigitalWalletDemo {
         harshUsd.deposite(BigDecimal.valueOf(1000));
         anuInr.deposite(BigDecimal.valueOf(20000));
 
+        digitalWallet.transferFunds(BigDecimal.valueOf(5000), harshInr, anuInr, Currency.INR);
         digitalWallet.transferFunds(BigDecimal.valueOf(5000), harshUsd, anuInr, Currency.INR);
 
-        BigDecimal balance = harshUsd.getBalance().setScale(2);
-        System.out.println(balance);
-        BigDecimal balance1 = anuInr.getBalance().setScale(2);
-        System.out.println(balance1);
+        List<Transaction> transactionsHistoryA1 = digitalWallet.getTransactionHistory(harshInr);
+        List<Transaction> transactionsHistoryA2 = digitalWallet.getTransactionHistory(harshUsd);
+        List<Transaction> transactionsHistoryA3 = digitalWallet.getTransactionHistory(anuInr);
+
+        System.out.println("Transaction History for Account 1:");
+        for (Transaction transaction : transactionsHistoryA1) {
+            System.out.println("Transaction ID: " + transaction.getId());
+            System.out.println("Amount: " + transaction.getAmount() + " " + transaction.getCurrency());
+            System.out.println("Timestamp: " + transaction.getCreatedAt());
+            System.out.println();
+        }
+
+        System.out.println("Transaction History for Account 2:");
+        for (Transaction transaction : transactionsHistoryA2) {
+            System.out.println("Transaction ID: " + transaction.getId());
+            System.out.println("Amount: " + transaction.getAmount() + " " + transaction.getCurrency());
+            System.out.println("Timestamp: " + transaction.getCreatedAt());
+            System.out.println();
+        }
+
+        System.out.println("Transaction History for Account 3:");
+        for (Transaction transaction : transactionsHistoryA3) {
+            System.out.println("Transaction ID: " + transaction.getId());
+            System.out.println("Amount: " + transaction.getAmount() + " " + transaction.getCurrency());
+            System.out.println("Timestamp: " + transaction.getCreatedAt());
+            System.out.println();
+        }
 
     }
 }
